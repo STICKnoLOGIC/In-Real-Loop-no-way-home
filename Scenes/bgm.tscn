@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtrwemc1knr3y"]
+
+[ext_resource type="AudioStream" uid="uid://bs88foc6dlwv5" path="res://Resources/Infested City.ogg" id="1_tfhy7"]
+
+[node name="bgm" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_tfhy7")
+volume_db = -28.0
+autoplay = true

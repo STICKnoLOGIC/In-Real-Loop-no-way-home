@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://clw5x0hxcqewc"]
+
+[ext_resource type="Script" path="res://Scripts/UncleTomi.gd" id="1_1ftpw"]
+[ext_resource type="Texture2D" uid="uid://255odl53v0ql" path="res://Resources/tomi_24x32.png" id="2_hhij0"]
+[ext_resource type="AudioStream" uid="uid://drxcv8vmof5xe" path="res://Resources/snl_res/uncle_tomi_whistle.wav" id="3_ixlpe"]
+[ext_resource type="AudioStream" uid="uid://dhekkao8cv4he" path="res://Resources/snl_res/foot_step.wav" id="4_cwxyw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qvt88"]
+
+[sub_resource type="Animation" id="Animation_beohh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tomi:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("audio2:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ky6s0"]
+resource_name = "walkDown"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tomi:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 7, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("audio2:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+
+[sub_resource type="Animation" id="Animation_00sh2"]
+resource_name = "walkUp"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tomi:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvbar"]
+_data = {
+"RESET": SubResource("Animation_beohh"),
+"walkDown": SubResource("Animation_ky6s0"),
+"walkUp": SubResource("Animation_00sh2")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7s0mf"]
+radius = 20.0
+height = 54.0
+
+[node name="UncleTomi" type="Area2D"]
+script = ExtResource("1_1ftpw")
+
+[node name="tomi" type="Sprite2D" parent="."]
+modulate = Color(0.635294, 0.635294, 0.635294, 1)
+z_index = 1
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_hhij0")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qvt88")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gvbar")
+}
+autoplay = "walkUp"
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ixlpe")
+volume_db = -20.0
+autoplay = true
+max_distance = 200.0
+
+[node name="audio2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_cwxyw")
+volume_db = -15.0
+autoplay = true
+max_distance = 300.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CapsuleShape2D_7s0mf")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b11ile3geu0rp"]
+
+[ext_resource type="Script" path="res://Scripts/randomObject.gd" id="1_dbh2k"]
+[ext_resource type="Texture2D" uid="uid://dfax0s3owr4aw" path="res://Resources/16x16_forest_tile.png" id="2_3s575"]
+[ext_resource type="Material" uid="uid://c36aiwep55f2x" path="res://Resources/Materials/hidden.tres" id="2_n6o4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si1to"]
+size = Vector2(40, 40)
+
+[node name="RandomObject" type="Node2D"]
+script = ExtResource("1_dbh2k")
+index = PackedVector2Array(0, 4, 0, 5, 0, 6, 0, 8, 1, 4, 1, 5, 1, 6, 1, 9, 2, 4, 4, 6, 5, 6, 5, 5)
+
+[node name="object" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = ExtResource("2_n6o4s")
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_3s575")
+region_enabled = true
+region_rect = Rect2(0, 96, 16, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+disable_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_si1to")

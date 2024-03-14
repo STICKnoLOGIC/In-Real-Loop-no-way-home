@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://clw5x0hxcqewc"]
+
+[ext_resource type="Script" path="res://Scripts/UncleTomi.gd" id="1_1ftpw"]
+[ext_resource type="Texture2D" uid="uid://255odl53v0ql" path="res://Resources/tomi_24x32.png" id="2_hhij0"]
+[ext_resource type="AudioStream" uid="uid://bs88foc6dlwv5" path="res://Resources/Infested City.ogg" id="3_tyry5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qvt88"]
+
+[sub_resource type="Animation" id="Animation_beohh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tomi:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_00sh2"]
+resource_name = "walkUp"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tomi:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvbar"]
+_data = {
+"RESET": SubResource("Animation_beohh"),
+"walkUp": SubResource("Animation_00sh2")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7s0mf"]
+radius = 20.0
+height = 54.0
+
+[node name="UncleTomi" type="Area2D"]
+script = ExtResource("1_1ftpw")
+
+[node name="tomi" type="Sprite2D" parent="."]
+modulate = Color(0.635294, 0.635294, 0.635294, 1)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_hhij0")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qvt88")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gvbar")
+}
+autoplay = "walkUp"
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tyry5")
+volume_db = -10.0
+max_distance = 160.0
+max_polyphony = 12
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CapsuleShape2D_7s0mf")

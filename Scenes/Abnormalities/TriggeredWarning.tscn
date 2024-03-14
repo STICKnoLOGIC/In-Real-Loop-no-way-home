@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddo07ap7ua2n1"]
+
+[ext_resource type="Script" path="res://Scripts/TriggeredWarning.gd" id="1_8k6rl"]
+[ext_resource type="PackedScene" uid="uid://b6i227ysb2dce" path="res://Scenes/Abnormalities/NormalWarning.tscn" id="1_x2b8e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1frit"]
+size = Vector2(256, 256)
+
+[node name="TriggeredWarning" type="Node2D"]
+script = ExtResource("1_8k6rl")
+
+[node name="NormalWarning" parent="." instance=ExtResource("1_x2b8e")]
+
+[node name="Area2D" type="Area2D" parent="NormalWarning"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NormalWarning/Area2D"]
+shape = SubResource("RectangleShape2D_1frit")
+
+[connection signal="area_entered" from="NormalWarning/Area2D" to="." method="_on_area_2d_area_entered"]

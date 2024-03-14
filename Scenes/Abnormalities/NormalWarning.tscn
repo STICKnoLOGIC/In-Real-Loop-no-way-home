@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6i227ysb2dce"]
+
+[ext_resource type="Texture2D" uid="uid://bhumnje3hdtah" path="res://Resources/snl_res/Sprite-0001.png" id="1_1yedt"]
+[ext_resource type="Material" uid="uid://c36aiwep55f2x" path="res://Resources/Materials/hidden.tres" id="1_7s0g6"]
+
+[node name="NormalWarning" type="Sprite2D"]
+material = ExtResource("1_7s0g6")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_1yedt")
+region_enabled = true
+region_rect = Rect2(0, 768, 256, 256)
